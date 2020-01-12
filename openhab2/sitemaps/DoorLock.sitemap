@@ -1,0 +1,9 @@
+sitemap DoorLock label="Door Lock"
+{
+Text item=Lock_Battery
+Switch item=Lock_Status
+Text item=Lock_Alarm
+Text item=Alarm_Value
+Text item=Alarm_Raw
+
+}

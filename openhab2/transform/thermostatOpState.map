@@ -1,0 +1,9 @@
+0=Idle
+1=Heating
+2=Cooling
+3=Fan Only
+4=Pending Heat
+5=Pending Cool
+6=Vent / Economizer
+=UnknownOpState  // anything else will cause "UnknownOpState"
+NULL=Null

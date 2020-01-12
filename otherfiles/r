@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#This will run Run345MHz from the pi directory.
+cd /home/pi/Documents/DACSS
+./Run345MHz
+#It should terminate from any Keyboard key
+#345MHzlog.log should be available.
+#nano 345MHzLog.log   Won't work from phones

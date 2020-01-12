@@ -1,0 +1,29 @@
+sitemap home  label="Security"
+{	
+Text item=BackDoor  //just to see if change in openhab/sitemap reflects in /srv/openhab2-conf/sitemaps
+Text item=FrontDoor  //Duh, it is a string but I had to use "Text"
+Text item=GarageDoor  //editing for rossko57
+Text item=PorchDoor
+Text item=BackLeftWindow
+Text item=BackCenterWindow
+Text item=BackRightWindow 
+Text item=DineLeftWindow
+Text item=DineRightWindow
+Text item=1stHallSH
+Text item=2ndHallSH
+Text item=GlassBreak
+Switch item=LEDItemName
+Text item=Button
+Text item=HVAC_HeatSetPoint
+Text item=HVAC_CoolSetPoint
+Text item=Temperature_HVAC
+Text item=Humidity_HVAC
+Text item=HVAC_Mode
+Text item=HVAC_Fan_Mode
+Text item=HVAC_Operating_State
+Text item=HVAC_Fan_State
+Text item=HVAC_Battery
+Switch item=EnableAwayMode
+Switch item=SendTextMode 
+}
+

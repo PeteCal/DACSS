@@ -1,0 +1,114 @@
+//This is the rules file
+
+// These "Opening" texts are from mqtt.   my.map just gives a replacement text to go to the UI
+// sendMail("email address"."Will become the subject",the state from the mqtt) 
+
+//******Door***************
+rule "Send Any Door via Mail"
+when
+    Member of DoorSensors changed
+then
+	if(triggeringItem.state == "Opening")    
+	{if (SendEmailMode.state == ON)
+		// The line below puts an entry in the OpenHAB log.
+		{logInfo("Door", "Sending notification via Email because {} is Opening.",triggeringItem.name)
+		// The line below sends an email
+		sendMail("MyEmail", "Mail Notification, door opening" ,triggeringItem.name)
+    	}
+    }
+end
+
+rule "Send Any Door Text Message"
+when
+    Member of DoorSensors changed
+then
+
+    if(triggeringItem.state == "Opening")    
+	{if (SendTextMode.state == ON)
+		{logInfo("Door", "Sending notification via Text because {} is Opening.",triggeringItem.name)
+		sendMail("PhoneNumber@txt.att.net", "Text Notification, door opening" ,triggeringItem.name)
+	    	}
+    }
+end
+
+///**********Window*****
+rule "Send Any Window via Mail"
+when
+    Member of WindowSensors changed
+then
+	if(triggeringItem.state == "Opening")    
+	{if (SendEmailMode.state == ON)
+		{logInfo("Window", "Sending notification via Email because {} is Opening.",triggeringItem.name)
+		sendMail("MyEmail", "Mail Notification, Window opening" ,triggeringItem.name)
+    	}
+    }
+end
+
+rule "Send Any Window Text Message"
+when
+    Member of WindowSensors changed
+then
+
+    if(triggeringItem.state == "Opening")    
+	{if (SendTextMode.state == ON)
+		{logInfo("Window", "Sending notification via Text because {} is Opening.",triggeringItem.name)
+		sendMail("PhoneNumber@txt.att.net", "Text Notification, Window opening" ,triggeringItem.name)
+		}
+	}
+end
+
+//*********SmokeHeat
+rule "Send Any SmokeHeat via Mail"
+when
+    Member of SmokeHeat changed
+then
+	//if(triggeringItem.state ==  "Opening")
+	if(triggeringItem.state ==  "Smoke")    
+	{if (SendEmailMode.state == ON)
+		//{logInfo("SmokeHeat", "Sending notification via Email because {} is Opening.",triggeringItem.name)
+		{logInfo("SmokeHeat", "Sending notification via Email because {} is Smoke.",triggeringItem.name)
+		sendMail("MyEmail", "Mail Notification, SmokeHeat" ,triggeringItem.name)
+    	}
+    }
+end
+
+rule "Send Any SmokeHeat Text Message"
+when
+    Member of SmokeHeat changed
+then
+
+    //if(triggeringItem.state == "Opening") 
+    if(triggeringItem.state ==  "Smoke")    
+	{if (SendTextMode.state == ON)
+		//{logInfo("SmokeHeat", "Sending notification via Text because {} is Opening.",triggeringItem.name)
+		{logInfo("SmokeHeat", "Sending notification via Email because {} is Smoke.",triggeringItem.name)
+		sendMail("PhoneNumber@txt.att.net", "Text Notification, SmokeHeat" ,triggeringItem.name)
+    	}
+    }
+end
+ 
+//******************GlassBreak  Need to update when we find out the GlassBreak code
+rule "Send Any GlassBreak via Mail"
+when
+    Member of GlassBreak changed
+then
+	if(triggeringItem.state == "Heat" || "Smoke")    // this can't be right 
+	{if (SendEmailMode.state == ON)
+		{logInfo("GlassBreak", "Sending notification via Email because {} Heat or Smoke.",triggeringItem.name)
+		sendMail("MyEmail", "Mail Notification, GlassBreak" ,triggeringItem.name)
+    	}
+    }
+end
+
+rule "Send Any GlassBreak Text Message"
+when
+    Member of GlassBreak changed
+then
+
+    if(triggeringItem.state == "Heat || Smoke")   // this can't be right 
+	{if (SendTextMode.state == ON)
+		{logInfo("GlassBreak", "Sending notification via Text because {} Heat or Smoke",triggeringItem.name)
+		sendMail("PhoneNumber@txt.att.net", "Text Notification, GlassBreak" ,triggeringItem.name)
+    	}
+    }
+end

@@ -1,0 +1,62 @@
+// This is the Items File
+
+//  First is name in Sitemap, Second is text in some UIs (HAB is entered by hand), third is the MQTT topic.
+//  MAP(xx.map) I think takes the message from the right and looks up a message to display
+//  <xxx> is an image to display
+// The group(s) an item is in is in () after <image>
+
+//Group Security  ?I don't know what these are for?
+//Group:String:OR("Opening","Closing") DoorSensors (Security) ?I don't know what these are for?
+//Group WindowSensors (Security)  ?I don't know what these are for?
+//Group Detectors (Security)    ?I don't know what these are for?
+
+
+String FrontDoor  "Front Dr Status [MAP(my.map):%s]" <frontdoor>  (DoorSensors)   {mqtt="<[mosquitto:FrontDoor:state:default]"}
+//String FrontDoor  "Front Dr Status [MAP(my.map):%s]" <frontdoor>  (SmokeHeat)   {mqtt="<[mosquitto:FrontDoor:state:default]"}
+String GarageDoor "Garage Dr Status [MAP(my.map):%s]" <frontdoor>  (DoorSensors)   {mqtt="<[mosquitto:GarageDoor:state:default]"}
+String PorchDoor "Porch Dr Status [MAP(my.map):%s]" <frontdoor>  (DoorSensors)    {mqtt="<[mosquitto:PorchDoor:state:default]"}
+// frontdoor is the name of the icon
+String BackLeftWindow "Bk Left Win Status[MAP(my.map):%s]" <window> (WindowSensors) {mqtt="<[mosquitto:BackLeftWindow:state:default]"}
+String BackLeftWindow "Bk Left Win Status[MAP(my.map):%s]" <window> (WindowSensors) {mqtt="<[mosquitto:BackLeftWindowTamper:state:default]"}
+String BackCenterWindow "Bk Center Win Status[MAP(my.map):%s]" <window> (WindowSensors) {mqtt="<[mosquitto:BackCenterWindow:state:default]"}
+String BackCenterWindow "Bk Center Win Status[MAP(my.map):%s]" <window> (WindowSensors) {mqtt="<[mosquitto:BackCenterWindowTamper:state:default]"}
+String BackRightWindow "Bk Right Win Status [MAP(my.map):%s]" <window> (WindowSensors) {mqtt="<[mosquitto:BackRightWindow:state:default]"}
+String BackRightWindow "Bk Right Win Status [MAP(my.map):%s]" <window> (WindowSensors) {mqtt="<[mosquitto:BackRightWindowTamper:state:default]"}
+String DineLeftWindow "Din Left Win Status [MAP(my.map):%s]" <window> (WindowSensors) {mqtt="<[mosquitto:DineLeftWindow:state:default]"}
+//String DineLeftWindow "Din Left Win Status [MAP(my.map):%s]" <window> (WindowSensors) {mqtt="<[mosquitto:DineLeftWindowTamper:state:default]"}
+String DineRightWindow "Din Right Win Status [MAP(my.map):%s]" <window> (WindowSensors) {mqtt="<[mosquitto:DineRightWindow:state:default]"}
+String DineRightWindow "Din Right Win Status [MAP(my.map):%s]" <window> (WindowSensors) {mqtt="<[mosquitto:DineRightWindowTamper:state:default]"}
+String 1stHallSH       "1st Hall S&H Status  [MAP(my.map):%s]" <fire>   (SmokeHeat)     {mqtt="<[mosquitto:1stHallSH:state:default]"}
+String 2ndHallSH "2nd Hall S&H Status  [MAP(my.map):%s]" <fire>      (SmokeHeat)   {mqtt="<[mosquitto:2ndHallSH:state:default]"}
+String BackDoor  "Back Dr Status       [MAP(my.map):%s]" <frontdoor> (DoorSensors) {mqtt="<[mosquitto:BackDoor:state:default]"} 
+String GlassBreak "Glass Break [MAP(my.map):%s]" <greenhouse> (GlassBreak) {mqtt="<[mosquitto:GlassBreak:state:default]"}
+Switch LEDItemName "LED Pin21[%s]" { gpio="pin:21"}
+Contact Button "Button Pin 24 [%s]" { gpio="pin:24 activelow:yes" }
+
+Switch SendEmailMode  "Enable Send Email" <switch> 
+Switch SendTextMode  "Enable Send Text" <switch>
+
+
+
+Number:Temperature HVAC_HeatSetPoint "Heat Set [%.0f °F]" <temperature_hot> ["TargetTemperature"] {channel="zwave:device:fe40ab17:node5:thermostat_setpoint_heating"} 
+Number:Temperature HVAC_CoolSetPoint "Cool Set [%.0f °F]" <temperature_cold> ["TargetTemperature"] {channel="zwave:device:fe40ab17:node5:thermostat_setpoint_cooling"}
+Number:Temperature Temperature_HVAC "Temperature [%.1f °F]" <temperature> (Temp_Chart)["CurrentTemperature"] {channel="zwave:device:fe40ab17:node5:sensor_temperature"}
+Number Humidity_HVAC "Humidity [%.1f %%]" <humidity> (Hum_Chart) {channel="zwave:device:fe40ab17:node5:sensor_relhumidity2"}
+
+
+Number HVAC_Mode "Mode" <flow> ["homekit:HeatingCooling"] {channel="zwave:device:fe40ab17:node5:thermostat_mode" }
+Number HVAC_Fan_Mode "Fan Mode [MAP(thermostatFanMode.map):%s]" <fan>  {channel="zwave:device:fe40ab17:node5:thermostat_fanmode" }
+Number HVAC_Operating_State "Operating State [MAP(thermostatOpState.map):%s]" <flow>  {channel="zwave:device:fe40ab17:node5:thermostat_state"}
+Number HVAC_Fan_State "Fan State [MAP(thermostatFanState.map):%s]" <fan>  {channel="zwave:device:fe40ab17:node5:thermostat_fanstate"}
+Number HVAC_Battery "HVAC Battery[%d %%]" <battery>  {channel="zwave:device:fe40ab17:node5:battery-level"}
+
+Number Lock_Battery "Lock Battery Level [%d %%]" <battery>  {channel="zwave:device:fe40ab17:node7:battery-level"}
+Switch Lock_Status "Lock State" <door>  {channel="zwave:device:fe40ab17:node7:lock_door"}
+///Number zwave_device_fe40ab17_node7_battery_level "Lock battery State [%d%%] <battery>{channel="zwave:device:fe40ab17:node7:battery-level"}
+Number Lock_Alarm "Lock Alarm [%d]" <alarm>  {channel="zwave:device:fe40ab17:node7:alarm_type"}
+Number Alarm_Value "Alarm Value [MAP(DoorLock.map):%s]" <alarm>  {channel="zwave:device:fe40ab17:node7:alarm_number"}
+String Alarm_Raw "Alarm Raw type [%s]" <alarm>  {channel="zwave:device:fe40ab17:node7:alarm_raw"}
+
+
+ //MAP(my.map): 
+ 

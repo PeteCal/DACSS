@@ -1,0 +1,6 @@
+//CLOSED=closed
+OPEN=open
+NULL=unknown
+//Closing=Closed   //this didn't work wih MAP(en.map)
+Opening=Open//this did
+ 
